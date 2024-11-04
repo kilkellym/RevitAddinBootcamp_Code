@@ -1,0 +1,136 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<LangVersion>latest</LangVersion>
+		<PlatformTarget>x64</PlatformTarget>
+		<ImplicitUsings>true</ImplicitUsings>
+		<PublishAddinFiles>true</PublishAddinFiles>
+		<Configurations>Debug R20;Debug R21;Debug R22;Debug R23;Debug R24;Debug R25</Configurations>
+		<Configurations>$(Configurations);Release R20;Release R21;Release R22;Release R23;Release R24;Release R25</Configurations>
+		<Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.Contains('R20'))">
+    <RevitVersion>2020</RevitVersion>
+    <TargetFramework>net48</TargetFramework>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+    <DefineConstants>$(DefineConstants);REVIT2020</DefineConstants>
+  </PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R21'))">
+		<RevitVersion>2021</RevitVersion>
+    <TargetFramework>net48</TargetFramework>
+		<EnableNETAnalyzers>false</EnableNETAnalyzers>
+		<DefineConstants>$(DefineConstants);REVIT2021</DefineConstants>
+  </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R22'))">
+    <RevitVersion>2022</RevitVersion>
+    <TargetFramework>net48</TargetFramework>
+		<EnableNETAnalyzers>false</EnableNETAnalyzers>
+		<DefineConstants>$(DefineConstants);REVIT2022</DefineConstants>
+	</PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R23'))">
+    <RevitVersion>2023</RevitVersion>
+    <TargetFramework>net48</TargetFramework>
+		<EnableNETAnalyzers>false</EnableNETAnalyzers>
+		<DefineConstants>$(DefineConstants);REVIT2023</DefineConstants>
+	</PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R24'))">
+		<RevitVersion>2024</RevitVersion>
+    <TargetFramework>net48</TargetFramework>
+		<EnableNETAnalyzers>false</EnableNETAnalyzers>
+		<DefineConstants>$(DefineConstants);REVIT2024</DefineConstants>
+	</PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R25'))">
+    <RevitVersion>2025</RevitVersion>
+    <TargetFramework>net8.0-windows</TargetFramework>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<DefineConstants>$(DefineConstants);REVIT2025</DefineConstants>
+  </PropertyGroup>
+	
+	<PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+		<Optimize>False</Optimize>
+		<OutputPath>bin\Debug\$(RevitVersion)</OutputPath>
+		<DebugType>Full</DebugType>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('Release'))">
+		<Optimize>True</Optimize>
+		<OutputPath>bin\Release\$(RevitVersion)</OutputPath>
+		<DebugType>None</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>$(RevitVersion)</Version>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(ProgramW6432)\Autodesk\Revit $(RevitVersion)\Revit.exe</StartProgram>
+    <StartArguments>/language ENG</StartArguments>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Module01.png" />
+	  <None Remove="Resources\Module02.png" />
+	  <None Remove="Resources\Module03.png" />
+	  <None Remove="Resources\Module04.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Module01.png" />
+	  <EmbeddedResource Include="Resources\Module02.png" />
+	  <EmbeddedResource Include="Resources\Module03.png" />
+	  <EmbeddedResource Include="Resources\Module04.png" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="System.Drawing.Common" Version="8.0.3" IncludeAssets="build; compile" PrivateAssets="All" />
+	  <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitVersion).*" IncludeAssets="build; compile" PrivateAssets="All" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<PostBuildEvent>
+      echo *** Configuration: $(Configuration)
+      echo *** Copying results to $(RevitVersion)
+      echo *** $(MSBuildProjectDirectory)
+      if not exist "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)\RevitAddinBootcamp" mkdir "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)\RevitAddinBootcamp"
+      copy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)"
+      copy "$(TargetDir)*.dll" "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)\RevitAddinBootcamp"
+    </PostBuildEvent>
+		<RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
+		<Copyright>2024</Copyright>
+	</PropertyGroup>
+	
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Properties\Settings.Designer.cs">
+	    <DesignTimeSharedInput>True</DesignTimeSharedInput>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Settings.settings</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
+	  <None Update="RegisterAddin.addin">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+  
+</Project>
