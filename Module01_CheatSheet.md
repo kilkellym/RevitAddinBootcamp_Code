@@ -1,14 +1,14 @@
 # Revit Add-in Bootcamp: Module 01 Cheat Sheet
 
 ## Quick Links
-- [C# Basics](#c-basics) (Video: 00:00 - 29:00)
-- [Revit API Essentials](#revit-api-essentials) (Video: 29:00 - 57:00) 
+- [C# Basics](#c-basics) (Video: 00:00 - 42:00)
+- [Revit API Essentials](#revit-api-essentials) (Video: 42:00 - 1:28:30) 
 - [Challenge Tips](#fizzbuzz-challenge-tips)
 - [Common Errors](#common-errors)
 
 ## C# Basics
 
-### Variables (04:12)
+### Variables (06:40)
 ```csharp
 // Numbers
 int wholeNumber = 42;
@@ -22,7 +22,7 @@ wholeNumber++;  // adds 1
 wholeNumber += 5;  // adds 5
 ```
 
-### Math Operations (11:23)
+### Math Operations (11:20)
 ```csharp
 // Basic math
 int sum = 5 + 3;      // addition
@@ -34,7 +34,7 @@ int quotient = 6 / 2; // division
 int remainder = 10 % 3;  // equals 1
 ```
 
-### Conditional Logic (18:17)
+### Conditional Logic (20:40)
 ```csharp
 // Check if equal
 if (number == 5) 
@@ -59,7 +59,7 @@ else
 }
 ```
 
-### Loops (28:32)
+### Loops (34:00)
 ```csharp
 // Loop from 1 to 10
 for (int i = 1; i <= 10; i++) 
@@ -70,7 +70,7 @@ for (int i = 1; i <= 10; i++)
 
 ## Revit API Essentials
 
-### Transaction Basics (42:27)
+### Transaction Basics (42:00)
 ```csharp
 // Start a transaction
 using (Transaction t = new Transaction(doc))
@@ -83,7 +83,7 @@ using (Transaction t = new Transaction(doc))
 }
 ```
 
-### Create Level (45:13)
+### Create Level (49:10)
 ```csharp
 // Create a level at specified height (in decimal feet)
 Level newLevel = Level.Create(doc, elevation);
@@ -92,7 +92,7 @@ Level newLevel = Level.Create(doc, elevation);
 newLevel.Name = "Level " + number.ToString();
 ```
 
-### Create Views (48:57)
+### Create Views (47:45)
 ```csharp
 // Create floor plan
 ViewFamilyType floorPlanType = GetFloorPlanType(doc);
@@ -105,7 +105,7 @@ ViewPlan ceilingPlan = ViewPlan.Create(doc, ceilingPlanType.Id, newLevel.Id);
 ceilingPlan.Name = "BUZZ_" + number.ToString();
 ```
 
-### Create Sheets (52:31)
+### Create Sheets (1:14:53)
 ```csharp
 // Get title block
 FilteredElementCollector collector = new FilteredElementCollector(doc);
@@ -116,27 +116,6 @@ Element titleBlock = collector
 // Create sheet
 ViewSheet sheet = ViewSheet.Create(doc, titleBlock.Id);
 sheet.Name = "FIZZBUZZ_" + number.ToString();
-```
-
-### Helper Methods (50:22)
-```csharp
-// Get floor plan type
-private ViewFamilyType GetFloorPlanType(Document doc)
-{
-    return new FilteredElementCollector(doc)
-        .OfClass(typeof(ViewFamilyType))
-        .Cast()
-        .FirstOrDefault(x => x.ViewFamily == ViewFamily.FloorPlan);
-}
-
-// Get ceiling plan type
-private ViewFamilyType GetCeilingPlanType(Document doc)
-{
-    return new FilteredElementCollector(doc)
-        .OfClass(typeof(ViewFamilyType))
-        .Cast()
-        .FirstOrDefault(x => x.ViewFamily == ViewFamily.CeilingPlan);
-}
 ```
 
 ## FizzBuzz Challenge Tips
