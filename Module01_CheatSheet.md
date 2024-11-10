@@ -150,53 +150,12 @@ private ViewFamilyType GetCeilingPlanType(Document doc)
 
 ## Common Errors
 
-|
- Error 
-|
- Solution 
-|
- Video Time 
-|
-|
--------
-|
-----------
-|
-------------
-|
-|
- Missing semicolon 
-|
- Check end of lines 
-|
- 06:54 
-|
-|
- Transaction error 
-|
- Ensure element creation is inside transaction 
-|
- 43:18 
-|
-|
- Null reference 
-|
- Check that types (floor plan, ceiling plan) exist 
-|
- 51:03 
-|
-|
- Cannot modify element 
-|
- Make sure transaction is started 
-|
- 42:27 
-|
+1. Missing semicolon - Check end of lines (06:54)
+2. Transaction error - Ensure element creation is inside transaction (43:18)
+3. Null reference - Check that types (floor plan, ceiling plan) exist (51:03)
+4. Cannot modify element - Make sure transaction is started (42:27)
 
 ## Video Section Overview
 - C# Fundamentals: 00:00 - 29:00
 - Revit API Basics: 29:00 - 57:00
 - Demo and Testing: 57:00 - end
-
----
-*Remember: All code must be inside the Execute method and within a transaction unless you're just getting element data.*
