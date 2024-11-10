@@ -133,8 +133,3 @@ sheet.Name = "FIZZBUZZ_" + number.ToString();
 2. Transaction error - Ensure element creation is inside transaction (43:18)
 3. Null reference - Check that types (floor plan, ceiling plan) exist (51:03)
 4. Cannot modify element - Make sure transaction is started (42:27)
-
-## Video Section Overview
-- C# Fundamentals: 00:00 - 29:00
-- Revit API Basics: 29:00 - 57:00
-- Demo and Testing: 57:00 - end
