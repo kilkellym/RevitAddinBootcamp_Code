@@ -9,6 +9,15 @@ namespace RevitAddinBootcamp
             string panelName = "Challenges";
 
             // 1. Create ribbon tab
+            try
+            {
+
+            }
+            catch (global::System.Exception)
+            {
+
+                throw;
+            }
             app.CreateRibbonTab(tabName);
 
             // 2. Create ribbon panel 
