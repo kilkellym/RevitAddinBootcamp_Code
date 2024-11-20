@@ -53,9 +53,12 @@ foreach(Element elem in pickList)
         }
     }
 }
-Transactions
-Using Statement
-csharpCopy// Using statement automatically disposes transaction
+'''
+
+## Transactions
+### Using Statement
+''' csharp
+// Using statement automatically disposes transaction
 using(Transaction t = new Transaction(doc))
 {
     t.Start("Create Elements");
@@ -66,8 +69,11 @@ using(Transaction t = new Transaction(doc))
     
     t.Commit();
 } // Transaction automatically disposed here
-Traditional Method
-csharpCopy// Must manually dispose transaction
+'''
+
+###Traditional Method
+''' csharp
+// Must manually dispose transaction
 Transaction t = new Transaction(doc);
 t.Start("Create Elements"); 
 
@@ -77,16 +83,17 @@ Wall newWall = Wall.Create(doc, curve, newLevel.Id, false);
 
 t.Commit();
 t.Dispose();
-Benefits of using statement:
+'''
 
-Automatically disposes transaction
-Clearly shows transaction scope
-Prevents memory leaks
-More concise than traditional method
-Good practice for resource management
+##Benefits of using statement:
+- Automatically disposes transaction
+- Clearly shows transaction scope
+- Prevents memory leaks
+- More concise than traditional method
+- Good practice for resource management
 
-Create Walls
-Using Default Wall Type
+##Create Walls
+###Using Default Wall Type
 csharpCopy// Create wall using curve and level
 using(Transaction t = new Transaction(doc))
 {
