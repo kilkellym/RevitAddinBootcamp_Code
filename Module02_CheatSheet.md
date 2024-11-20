@@ -1,9 +1,10 @@
-#Revit Add-in Bootcamp: Module 02 Cheat Sheet
+# Revit Add-in Bootcamp: Module 02 Cheat Sheet
 
-##Select Elements
-###Pick Single Element
+## Select Elements
 
-'''csharp
+### Pick Single Element
+
+```csharp
 // Get UI document
 UIDocument uidoc = uiapp.ActiveUIDocument;
 
@@ -14,17 +15,20 @@ Reference pickRef = uidoc.Selection.PickObject(
 
 // Get element from reference
 Element pickElement = doc.GetElement(pickRef);
-'''
+```
 
-###Pick Multiple Elements
-'''csharp
+### Pick Multiple Elements
+
+```csharp
 // Prompt user to select elements by rectangle
 List<Element> pickList = uidoc.Selection.PickElementsByRectangle("Select elements").ToList();
-'''
+```
 
-##Filter Elements
-###Filter for Curve Elements
-'''csharp
+## Filter Elements
+
+### Filter for Curve Elements
+
+```csharp
 // Create list for curve elements
 List<CurveElement> allCurves = new List<CurveElement>();
 
@@ -36,10 +40,11 @@ foreach(Element elem in pickList)
         allCurves.Add(elem as CurveElement); 
     }
 }
-'''
+```
 
-###Filter for Model Curves
-'''csharp
+### Filter for Model Curves
+
+```csharp
 List<CurveElement> modelCurves = new List<CurveElement>();
 
 foreach(Element elem in pickList)
@@ -53,11 +58,13 @@ foreach(Element elem in pickList)
         }
     }
 }
-'''
+```
 
 ## Transactions
+
 ### Using Statement
-''' csharp
+
+```csharp
 // Using statement automatically disposes transaction
 using(Transaction t = new Transaction(doc))
 {
@@ -69,10 +76,10 @@ using(Transaction t = new Transaction(doc))
     
     t.Commit();
 } // Transaction automatically disposed here
-'''
+```
 
-###Traditional Method
-''' csharp
+### Traditional Method
+```csharp
 // Must manually dispose transaction
 Transaction t = new Transaction(doc);
 t.Start("Create Elements"); 
@@ -83,18 +90,21 @@ Wall newWall = Wall.Create(doc, curve, newLevel.Id, false);
 
 t.Commit();
 t.Dispose();
-'''
+```
 
-##Benefits of using statement:
+Benefits of using statement:
+
 - Automatically disposes transaction
 - Clearly shows transaction scope
 - Prevents memory leaks
 - More concise than traditional method
 - Good practice for resource management
 
-##Create Walls
-###Using Default Wall Type
-csharpCopy// Create wall using curve and level
+## Create Walls
+
+### Using Default Wall Type
+```csharp
+// Create wall using curve and level
 using(Transaction t = new Transaction(doc))
 {
     t.Start("Create Wall");
@@ -107,8 +117,11 @@ using(Transaction t = new Transaction(doc))
     
     t.Commit();
 }
-Using Specific Wall Type
-csharpCopy// Get wall type
+```
+
+### Using Specific Wall Type
+```csharp
+// Get wall type
 FilteredElementCollector wallTypes = new FilteredElementCollector(doc)
     .OfClass(typeof(WallType));
 
@@ -122,9 +135,12 @@ Wall newWall = Wall.Create(
     false, // flip
     false  // structural
 );
-Create MEP Elements
-Get System Type
-csharpCopy// Filter for MEP system types
+```
+
+## Create MEP Elements
+### Get System Type
+```csharp
+// Filter for MEP system types
 FilteredElementCollector collector = new FilteredElementCollector(doc)
     .OfClass(typeof(MEPSystemType));
 
@@ -137,8 +153,11 @@ foreach(Element type in collector)
         break;
     }
 }
-Create Duct
-csharpCopy// Get duct type
+```
+
+### Create Duct
+```csharp
+// Get duct type
 FilteredElementCollector ductTypes = new FilteredElementCollector(doc)
     .OfClass(typeof(DuctType));
 
@@ -150,8 +169,10 @@ Duct newDuct = Duct.Create(
     startPoint,
     endPoint
 );
-Create Pipe
-csharpCopy// Get pipe type
+```
+### Create Pipe
+```csharp
+// Get pipe type
 FilteredElementCollector pipeTypes = new FilteredElementCollector(doc)
     .OfClass(typeof(PipeType));
 
@@ -163,15 +184,21 @@ Pipe newPipe = Pipe.Create(
     startPoint,
     endPoint
 );
-Using Methods
-Custom Method Template
-csharpCopyinternal ReturnType MethodName(ArgumentType argument)
+```
+
+## Using Methods
+### Custom Method Template
+```csharp
+internal ReturnType MethodName(ArgumentType argument)
 {
     // Method code here
     return returnValue;
 }
-Get Type by Name Method
-csharpCopyinternal MEPSystemType GetSystemTypeByName(Document doc, string name)
+```
+
+### Get Type by Name Method
+```csharp
+internal MEPSystemType GetSystemTypeByName(Document doc, string name)
 {
     FilteredElementCollector collector = new FilteredElementCollector(doc)
         .OfClass(typeof(MEPSystemType));
@@ -183,8 +210,11 @@ csharpCopyinternal MEPSystemType GetSystemTypeByName(Document doc, string name)
     }
     return null;
 }
-Switch Statements
-csharpCopyswitch(variableToCheck)
+```
+
+## Switch Statements
+```csharp
+switch(variableToCheck)
 {
     case "value1":
         // Do something
@@ -196,17 +226,22 @@ csharpCopyswitch(variableToCheck)
         // Default action
         break;
 }
-Common Errors
+```
 
-"Transaction not started" - Ensure element creation is inside transaction
-"Object reference not set" - Check for null system types
-"Collector has no filter" - Verify collector variable names match
-"Cannot convert type" - Use proper casting with 'as' keyword
+## Common Errors
 
-Tips
+* "Transaction not started"
+  * Ensure element creation is inside transaction
+* "Object reference not set"
+   * Check for null system types
+* "Collector has no filter" 
+  * Verify collector variable names match
+* "Cannot convert type" 
+  * Use proper casting with 'as' keyword
 
-Remember to activate family symbols before creating instances
-Set Detail Level to Fine to see pipes
-Use Debug.Print() for troubleshooting
-Break points help inspect variable values
-Index 0 is first item in lists/arrays
+## Tips
+
+* Set Detail Level to Fine to see pipes
+* Use Debug.Print() for troubleshooting
+* Break points help inspect variable values
+* Index 0 is first item in lists/arrays
