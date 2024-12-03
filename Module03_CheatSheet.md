@@ -2,7 +2,7 @@
 
 ## Classes
 
-### Creating a Basic Class (04:30)
+### Creating a Basic Class
 ```csharp
 public class Building 
 {
@@ -14,7 +14,7 @@ public class Building
 }
 ```
 
-### Adding a Constructor (12:15)
+### Adding a Constructor
 ```csharp
 public class Building
 {
@@ -28,7 +28,7 @@ public class Building
 }
 ```
 
-### Creating Class Instance (15:45)
+### Creating Class Instance
 ```csharp
 // Using constructor
 Building building1 = new Building("Office Tower", "123 Main St", 10, 150000);
@@ -40,7 +40,7 @@ buildings.Add(building1);
 
 ## Rooms and Spatial Elements
 
-### Getting Rooms (47:20)
+### Getting Rooms
 ```csharp
 // Get all rooms
 FilteredElementCollector collector = new FilteredElementCollector(doc)
@@ -51,7 +51,7 @@ LocationPoint locPoint = (LocationPoint)room.Location;
 XYZ roomPoint = locPoint.Point;
 ```
 
-### String Contains Check (52:40)
+### String Contains Check
 ```csharp
 // Check room name contains text
 if (roomName.Contains("Office"))
@@ -62,13 +62,13 @@ if (roomName.Contains("Office"))
 
 ## Working with Families
 
-### Family Hierarchy (1:02:30)
+### Family Hierarchy 
 
 1. Family (RFA file)
 2. FamilySymbol (Type) 
 3. FamilyInstance (Placed in model)
 
-### Get Family Symbol (1:10:15)
+### Get Family Symbol
 ```csharp
 internal FamilySymbol GetFamilySymbolByName(Document doc, string familyName, string symbolName)
 {
@@ -84,7 +84,7 @@ internal FamilySymbol GetFamilySymbolByName(Document doc, string familyName, str
 }
 ```
 
-### Place Family Instance (1:15:30)
+### Place Family Instance
 ```csharp
 // Activate symbol before placing
 familySymbol.Activate();
@@ -98,7 +98,7 @@ FamilyInstance instance = doc.Create.NewFamilyInstance(
 
 ## Parameters
 
-### Get Parameter Value (1:35:20)
+### Get Parameter Value
 ```csharp
 public static string GetParameterValueAsString(Element element, string paramName)
 {
@@ -118,7 +118,7 @@ public static string GetParameterValueAsString(Element element, BuiltInParameter
 }
 ```
 
-### Set Parameter Value (1:45:10)
+### Set Parameter Value
 ```csharp
 public static void SetParameterValue(Element element, string paramName, string value)
 {
@@ -130,7 +130,7 @@ public static void SetParameterValue(Element element, string paramName, string v
 
 ## Static Classes and Methods
 
-### Converting Class to Static (2:05:30)
+### Converting Class to Static
 ```csharp
 // Static class declaration
 public static class Utils
@@ -146,7 +146,7 @@ public static class Utils
 Utils.GetParameterValueAsString(element, "Height");
 ```
 
-### Add Using Statement (2:15:40)
+### Add Using Statement
 ```csharp
 // Add namespace to top of file
 using RevitAddinBootcamp.Common;
@@ -159,5 +159,5 @@ Utils.GetParameterValueAsString(element, "Height");
 
 1. Cannot declare instance members in static class - Add static keyword to methods
 2. Method not found - Add using statement or use full namespace path
-3. Family symbol not activated - Call Activate() before placing instance
+3. Family symbol not activated - Call Activate() before placing an instance
 4. Parameter returns null - Check parameter name/built-in parameter exists
