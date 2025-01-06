@@ -8,8 +8,6 @@ namespace RevitAddinBootcamp
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            // THIS IS MY TEST CHANGE
-            // Revit application and document variables
             UIApplication uiapp = commandData.Application;
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Document doc = uidoc.Document;
