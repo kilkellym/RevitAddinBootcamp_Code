@@ -71,10 +71,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Blue_16.png" />
+	  <None Remove="Resources\Blue_32.png" />
+	  <None Remove="Resources\Green_16.png" />
+	  <None Remove="Resources\Green_32.png" />
 	  <None Remove="Resources\Module01.png" />
 	  <None Remove="Resources\Module02.png" />
 	  <None Remove="Resources\Module03.png" />
 	  <None Remove="Resources\Module04.png" />
+	  <None Remove="Resources\Red_16.png" />
+	  <None Remove="Resources\Red_32.png" />
+	  <None Remove="Resources\Yellow_16.png" />
+	  <None Remove="Resources\Yellow_32.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -102,6 +110,17 @@
 		<RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
 		<Copyright>2024</Copyright>
 	</PropertyGroup>
+	
+	<ItemGroup>
+	  <Resource Include="Resources\Blue_16.png" />
+	  <Resource Include="Resources\Blue_32.png" />
+	  <Resource Include="Resources\Green_16.png" />
+	  <Resource Include="Resources\Green_32.png" />
+	  <Resource Include="Resources\Red_16.png" />
+	  <Resource Include="Resources\Red_32.png" />
+	  <Resource Include="Resources\Yellow_16.png" />
+	  <Resource Include="Resources\Yellow_32.png" />
+	</ItemGroup>
 	
 	<ItemGroup>
 	  <Compile Update="Properties\Resources.Designer.cs">
